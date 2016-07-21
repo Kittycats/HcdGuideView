@@ -62,6 +62,7 @@
     return _view;
 }
 
+
 /**
  *  初始化pageControl
  *
@@ -72,8 +73,18 @@
         _pageControl = [[UIPageControl alloc] init];
         _pageControl.frame = CGRectMake(0, 0, kHcdGuideViewBounds.size.width, 44.0f);
         _pageControl.center = CGPointMake(kHcdGuideViewBounds.size.width / 2, kHcdGuideViewBounds.size.height - 60);
+        [_pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+
     }
     return _pageControl;
+}
+
+#pragma @selector - action
+-(void)changePage:(UIPageControl *)sender {
+    //偏移量
+    CGPoint point = CGPointMake(sender.currentPage * [UIScreen mainScreen].bounds.size.width, 0);
+    //修改偏移量(带动画)
+    [_view setContentOffset:point animated:YES];
 }
 
 - (void)showGuideViewWithImages:(NSArray *)images
